@@ -1,1 +1,1 @@
-# switchbot-telemetry
+# SwitchBotTelemetryService
