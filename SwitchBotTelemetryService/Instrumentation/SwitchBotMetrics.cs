@@ -14,7 +14,7 @@ internal sealed class SwitchBotMetrics
 
     private readonly SwitchBotInstrumentationOptions options;
 
-    private readonly SortedDictionary<string, Data> sensorData = new();
+    private readonly SortedDictionary<string, Data> sensorData = [];
 
     public SwitchBotMetrics(SwitchBotInstrumentationOptions options)
     {
