@@ -21,16 +21,16 @@ internal sealed class SwitchBotMetrics
         this.options = options;
 
         MeterInstance.CreateObservableUpDownCounter(
-            "sensor.switchbot.rssi",
+            "sensor.rssi",
             () => GatherValues(static _ => true, ToRssi));
         MeterInstance.CreateObservableUpDownCounter(
-            "sensor.switchbot.temperature",
+            "sensor.temperature",
             () => GatherValues(static _ => true, ToTemperature));
         MeterInstance.CreateObservableUpDownCounter(
-            "sensor.switchbot.humidity",
+            "sensor.humidity",
             () => GatherValues(static _ => true, ToHumidity));
         MeterInstance.CreateObservableUpDownCounter(
-            "sensor.switchbot.co2",
+            "sensor.co2",
             () => GatherValues(static x => x.Co2.HasValue, ToCo2));
 
         Bluetooth.AdvertisementReceived += BluetoothOnAdvertisementReceived;
@@ -110,16 +110,16 @@ internal sealed class SwitchBotMetrics
     }
 
     private static Measurement<double> ToRssi(Data data) =>
-        new(data.Rssi, new KeyValuePair<string, object?>[] { new("device", data.Id) });
+        new(data.Rssi, new("type", "switchbot"), new("device", data.Id));
 
     private static Measurement<double> ToTemperature(Data data) =>
-        new(data.Temperature, new KeyValuePair<string, object?>[] { new("device", data.Id) });
+        new(data.Temperature, new("type", "switchbot"), new("device", data.Id));
 
     private static Measurement<double> ToHumidity(Data data) =>
-        new(data.Humidity, new KeyValuePair<string, object?>[] { new("device", data.Id) });
+        new(data.Humidity, new("type", "switchbot"), new("device", data.Id));
 
     private static Measurement<double> ToCo2(Data data) =>
-        new(data.Co2!.Value, new KeyValuePair<string, object?>[] { new("device", data.Id) });
+        new(data.Co2!.Value, new("type", "switchbot"), new("device", data.Id));
 
     //--------------------------------------------------------------------------------
     // Data
