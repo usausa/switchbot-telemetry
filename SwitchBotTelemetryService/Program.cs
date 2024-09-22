@@ -6,6 +6,7 @@ using OpenTelemetry.Metrics;
 using Serilog;
 
 using SwitchBotTelemetryService;
+using SwitchBotTelemetryService.Instrumentation;
 
 // Builder
 Directory.SetCurrentDirectory(AppContext.BaseDirectory);
@@ -32,7 +33,8 @@ builder.Services
     .AddOpenTelemetry()
     .WithMetrics(metrics =>
     {
-        // TODO Add
+        // SwitchBot
+        metrics.AddSwitchBotInstrumentation();
 
         metrics.AddPrometheusHttpListener(options =>
         {
@@ -43,8 +45,6 @@ builder.Services
             builder.Services.AddOpenTelemetry().UseOtlpExporter();
         }
     });
-
-// TODO Worker
 
 // Build
 var host = builder.Build();
